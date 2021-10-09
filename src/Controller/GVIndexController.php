@@ -12,16 +12,8 @@ class GVIndexController extends AbstractController
 {
 
     #[Route('/', name: 'index')]
-    public function home(UserPasswordHasherInterface $passwordHasher){
-        /*
-        $em = $this->getDoctrine()->getManager();
-        $user = new User();
-        $user->setEmail('t.delias22@gmail.com');
-        $user->setPassword($passwordHasher->hashPassword($user, 'admin'));
-        //$user->setRole(['ROLE_ADMIN']);
-        $em->persist($user);
+    public function index(): Response{
 
-        $em->flush();*/
         return $this->render('gv_index/index.html.twig');
     }
 
