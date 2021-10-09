@@ -5,13 +5,12 @@
 
     {%  for article in articles %}
         <article>
-            <h2>Titre article</h2>
-            <div class="metadata">Ecrit le 10/05/2018 à 19:00</div>
+            <h2>{{ article.title }}</h2>
+            <div class="metadata">Ecrit le {{ article.createAt | date('d/m/Y')}} à {{ article.createAt | date('H:i') }}</div>
             <div class="content">
-                <img src="http://placehold.it/350x150" alt="">
-                <p>aezhueuiheazaezhuieazuezauhea</p>
-                <p>aezhueuiheazaezhuieazuezauhea</p>
-                <a href="{{ path('news_show') }}" class="btn btn-primary">Lire la suite</a>
+                <img src="{{ article.image }}" alt="">
+                {{ article.content | raw }}
+                <a href="{{ path('news_show', {'id':article.id}) }}" class="btn btn-primary">Lire la suite</a>
             </div>
         </article>
     {% endfor %}
