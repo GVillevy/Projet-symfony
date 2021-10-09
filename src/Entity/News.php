@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
+use App\Repository\NewsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\Entity(repositoryClass=NewsRepository::class)
  */
-class Article
+class News
 {
     /**
      * @ORM\Id
@@ -20,13 +22,13 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 10, max = 255)
+     * @Assert\Length(min = 10, max = 255, minMessage = "Le contenu du titre ne peut pas faire moins de {{ limit }} caractères",maxMessage = "Le contenu du titre ne peut pas faire plus de {{ limit }} caractères")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min = 10)
+     * @Assert\Length(min = 10, minMessage = "Le contenu de l'article ne peut pas faire moins de {{ limit }} caractères")
      */
     private $content;
 
@@ -93,4 +95,6 @@ class Article
 
         return $this;
     }
+
+
 }

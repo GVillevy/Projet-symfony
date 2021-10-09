@@ -3,25 +3,25 @@
 {% block body %}
 
     {% if editMode %}
-        <h1>Modification de l'article</h1>
+        <h1>Modification de la news</h1>
     {% else %}
-        <h1>Création d'un article</h1>
+        <h1>Création d'une news</h1>
     {% endif %}
 
-    {{ form_start(formArticle) }}
+    {{ form_start(formNews) }}
 
-    {{ form_row(formArticle.title,{'attr':{'placeholder':"Titre de l'article"}}) }}
-    {{ form_row(formArticle.content,{'attr':{'placeholder':"Contenu de l'article"}}) }}
-    {{ form_row(formArticle.image,{'attr':{'placeholder':"Image de l'article"}}) }}
+    {{ form_row(formNews.title,{'attr':{'placeholder':"Titre de la news"}}) }}
+    {{ form_row(formNews.content,{'attr':{'placeholder':"Contenu de la news"}}) }}
+    {{ form_row(formNews.image,{'attr':{'placeholder':"Image de la news"}}) }}
     <button type="submit" class="btn btn-success">
         {% if editMode %}
             Enregistrer les modifications
         {% else %}
-            Ajouter article
+            Ajouter news
         {% endif %}
     </button>
 
-    {{ form_end(formArticle) }}
+    {{ form_end(formNews) }}
 
 {% endblock %}
 

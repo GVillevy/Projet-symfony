@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Entity\News;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,12 +18,12 @@ class GVNewsController extends AbstractController
     #[Route('/news', name: 'news')]
     public function index(): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(News::class);
+        $NewsList = $repo->findAll();
 
         return $this->render('gv_news/index.html.twig', [
             'controller_name' => 'GVNewsController',
-            'articles' => $articles
+            'newsList' => $NewsList
         ]);
     }
 
@@ -31,13 +31,13 @@ class GVNewsController extends AbstractController
      * @Route("/news/create", name="news_create")
      * @Route("/news/{id}/edit", name="news_edit")
      */
-    public function form(Article $article = null, Request $request,EntityManagerInterface $manager){
+    public function form(News $news = null, Request $request, EntityManagerInterface $manager){
 
-        if(!$article){
-            $article=new Article();
+        if(!$news){
+            $news=new News();
         }
 
-        $form = $this->createFormBuilder($article)
+        $form = $this->createFormBuilder($news)
                     ->add('title')
                     ->add('content')
                     ->add('image')
@@ -45,28 +45,28 @@ class GVNewsController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            if(!$article->getId()){
-                $article->setCreateAt(new \DateTimeImmutable());
+            if(!$news->getId()){
+                $news->setCreateAt(new \DateTimeImmutable());
             }
 
-            $manager->persist($article);
+            $manager->persist($news);
             $manager->flush();
 
-            return $this->redirectToRoute('news_show',['id' => $article->getId()]);
+            return $this->redirectToRoute('news_show',['id' => $news->getId()]);
         }
 
         return $this->render('gv_news/create.html.twig', [
-            'formArticle' => $form->createView(),
-            'editMode' => $article->getId()!==null
+            'formNews' => $form->createView(),
+            'editMode' => $news->getId()!==null
         ]);
     }
 
     #[Route('/news/{id}', name: 'news_show')]
     public function show($id){
-        $repo=$this->getDoctrine()->getRepository(Article::class);
-        $article = $repo->find($id);
+        $repo=$this->getDoctrine()->getRepository(News::class);
+        $news = $repo->find($id);
         return $this->render('gv_news/show.html.twig', [
-            'article' =>$article
+            'news' =>$news
         ]);
     }
 }
