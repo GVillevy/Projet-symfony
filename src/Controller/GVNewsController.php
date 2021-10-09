@@ -27,10 +27,15 @@ class GVNewsController extends AbstractController
         ]);
     }
 
-    #[Route('/news/create', name: 'news_create')]
-    public function create(Request $request,EntityManagerInterface $manager){
+    /**
+     * @Route("/news/create", name="news_create")
+     * @Route("/news/{id}/edit", name="news_edit")
+     */
+    public function form(Article $article = null, Request $request,EntityManagerInterface $manager){
 
-        $article = new Article();
+        if(!$article){
+            $article=new Article();
+        }
 
         $form = $this->createFormBuilder($article)
                     ->add('title')
@@ -40,7 +45,9 @@ class GVNewsController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $article->setCreateAt(new \DateTimeImmutable());
+            if(!$article->getId()){
+                $article->setCreateAt(new \DateTimeImmutable());
+            }
 
             $manager->persist($article);
             $manager->flush();
@@ -49,7 +56,8 @@ class GVNewsController extends AbstractController
         }
 
         return $this->render('gv_news/create.html.twig', [
-            'formArticle' => $form->createView()
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId()!==null
         ]);
     }
 
