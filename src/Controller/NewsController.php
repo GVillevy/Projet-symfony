@@ -29,7 +29,13 @@ class NewsController extends AbstractController
     public function new(Request $request): Response
     {
         $news = new News();
-        $form = $this->createForm(NewsType::class, $news);
+        //$form = $this->createForm(NewsType::class, $news);
+        $form = $this->createFormBuilder($news)
+            ->add('title')
+            ->add('content')
+            ->add('image')
+            ->getForm();
+        $news->setCreateAt(new \DateTimeImmutable());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
