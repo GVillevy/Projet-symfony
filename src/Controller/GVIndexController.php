@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,25 @@ class GVIndexController extends AbstractController
     public function index(): Response{
 
         return $this->render('gv_index/index.html.twig');
+    }
+
+    #[Route('/home', name: 'home')]
+    public function home(): Response{
+
+        return $this->render('gv_index/home.html.twig',[
+            'controller_name' => "GVHomeController"
+        ]);
+    }
+
+    #[Route('/news', name: 'news')]
+    public function news(): Response{
+        $repo = $this->getDoctrine()->getRepository(News::class);
+        $news = $repo->findAll();
+
+        return $this->render('gv_index/news.html.twig',[
+            'controller_name' => "News",
+            'new' => $news
+        ]);
     }
 
 }
