@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Entity\PlayOfTheWeek;
 use App\Entity\User;
+use App\Entity\WorldRecords;
 use App\Repository\PlayOfTheWeekRepository;
+use App\Repository\WorldRecordsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -61,6 +63,24 @@ class GVIndexController extends AbstractController
             'play_of_the_week' => $playOfTheWeek,
         ]);
     }
+
+    #[Route('/', name: 'wr_index', methods: ['GET'])]
+    public function wr(WorldRecordsRepository $worldRecordsRepository): Response
+    {
+        return $this->render('gv_index/wr.html.twig', [
+            'world_records' => $worldRecordsRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'wr_show', methods: ['GET'])]
+    public function wr_show(WorldRecords $worldRecord): Response
+    {
+        return $this->render('gv_index/wr_show.html.twig', [
+            'world_record' => $worldRecord,
+        ]);
+    }
+
+
 
 
 
