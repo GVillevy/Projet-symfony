@@ -24,12 +24,15 @@
                         <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN')%}
-                        <li><a href="{{ path('news_index') }}">News admin (accessible aux inscrits !)</a></li>
+                        <li><a href="{{ path('admin_news_index') }}">News admin (accessible aux inscrits !)</a></li>
                     {% else%}
                         <li><a href="{{ path('news') }}">News (accessible aux inscrits !)</a></li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('news_new') }}">Cree un article</a></li>
+                        <li><a href="{{ path('admin_news_new') }}">Cree un article</a></li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('admin_news_new') }}">Panneau admin</a></li>
                     {% endif %}
                 </ul>
             </nav>

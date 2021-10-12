@@ -25,8 +25,9 @@
                 <img src="{{ news.image }}">
                 <td>{{ news.createAt ? news.createAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('news_show', {'id': news.id}) }}">show</a>
-                    <a href="{{ path('news_edit', {'id': news.id}) }}">edit</a>
+                    <a href="{{ path('admin_news_show', {'id': news.id}) }}">show</a>
+                    <a href="{{ path('admin_news_edit', {'id': news.id}) }}">edit</a>
+                    {{ include('gv_admin_news/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -37,5 +38,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('news_new') }}">Create new</a>
+    <a href="{{ path('admin_news_new') }}">Create new</a>
 {% endblock %}

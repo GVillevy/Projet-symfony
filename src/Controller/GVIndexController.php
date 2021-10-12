@@ -37,4 +37,12 @@ class GVIndexController extends AbstractController
         ]);
     }
 
+    #[Route('/news/{id}', name: 'news_show', methods: ['GET'])]
+    public function show(News $news): Response
+    {
+        return $this->render('gv_index/news_show.html.twig', [
+            'news' => $news,
+        ]);
+    }
+
 }
