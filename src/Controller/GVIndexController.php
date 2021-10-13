@@ -64,7 +64,7 @@ class GVIndexController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'wr_index', methods: ['GET'])]
+    #[Route('/wr', name: 'wr_index', methods: ['GET'])]
     public function wr(WorldRecordsRepository $worldRecordsRepository): Response
     {
         return $this->render('gv_index/wr.html.twig', [
@@ -72,7 +72,7 @@ class GVIndexController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'wr_show', methods: ['GET'])]
+    #[Route('/wr/{id}', name: 'wr_show', methods: ['GET'])]
     public function wr_show(WorldRecords $worldRecord): Response
     {
         return $this->render('gv_index/wr_show.html.twig', [
