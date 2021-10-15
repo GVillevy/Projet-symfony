@@ -22,46 +22,25 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">ApexUnite</a>
-
                     <div class="collapse navbar-collapse" id="navbarColor03">
-
                         <ul class="navbar-nav me-auto">
-
                             <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Home</a></li>
-                            {% if is_granted('ROLE_ADMIN')%}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_news_index') }}">News admin</a></li>
-                            {% else%}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('news') }}">News</a></li>
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_news_new') }}">Cree un article</a></li>
-                            {% endif %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('user_index') }}">User</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_video_index') }}">Video</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_article_index') }}">Article</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_tag_index') }}">tag</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_type_index') }}">type</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{{ path('video_index') }}">Video</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('article_index') }}">Article</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('news_index') }}">news</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('funnystuff_index') }}">funnystuff</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}">contact</a></li>
                             {% endif %}
-
-
-                            {% if is_granted('ROLE_ADMIN')%}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_potw_index') }}">potw admin</a></li>
-                            {% else%}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('potw_index') }}">potw</a></li>
-                            {% endif %}
-
-                            {% if is_granted('ROLE_ADMIN')%}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_wr_index') }}">worldrecords admin</a></li>
-                            {% else%}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('wr_index') }}">worldrecords</a></li>
-                            {% endif %}
-
-
-
                             {% if app.user %}
                                 <li class="nav-link">Bonjour, {{ app.user.username }}</li>
-                            {% endif %}
-                            {% if app.user %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
-                            {% endif %}
-                            {% if app.user %}
                             {% else %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a></li>
@@ -71,14 +50,8 @@
                 </div>
             </nav>
         </header>
-
-
         {% block body %}{% endblock %}
     </body>
 </html>
 <style>
-    tr{
-        display:flex;
-        flex-direction: column;
-    }
 </style>

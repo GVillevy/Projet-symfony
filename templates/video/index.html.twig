@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Video index{% endblock %}
+
+{% block body %}
+    <h1>Video index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Lien</th>
+                <th>PostedAt</th>
+                <th>Auteur</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for video in videos %}
+            <tr>
+                <td>{{ video.id }}</td>
+                <td>{{ video.titre }}</td>
+                <iframe width="900" height="506" src="{{ video.lien }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <td>{{ video.postedAt ? video.postedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ video.auteur }}</td>
+                <td>{{ video.description | raw }}</td>
+                <td>
+                    <a href="{{ path('admin_video_show', {'id': video.id}) }}">show</a>
+                    <a href="{{ path('admin_video_edit', {'id': video.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_video_new') }}">Create new</a>
+{% endblock %}

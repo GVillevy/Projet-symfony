@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\News;
 use App\Entity\PlayOfTheWeek;
+use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\WorldRecords;
+use App\Repository\ArticleRepository;
 use App\Repository\PlayOfTheWeekRepository;
+use App\Repository\VideoRepository;
 use App\Repository\WorldRecordsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,58 +34,59 @@ class GVIndexController extends AbstractController
         ]);
     }
 
-    #[Route('/news', name: 'news')]
-    public function news(): Response{
-        $repo = $this->getDoctrine()->getRepository(News::class);
-        $news = $repo->findAll();
-
-        return $this->render('gv_index/news.html.twig',[
-            'controller_name' => "News",
-            'new' => $news
-        ]);
-    }
-
-    #[Route('/news/{id}', name: 'news_show', methods: ['GET'])]
-    public function news_show(News $news): Response
+    #[Route('/video', name: 'video_index', methods: ['GET'])]
+    public function video(VideoRepository $videoRepository): Response
     {
-        return $this->render('gv_index/news_show.html.twig', [
-            'news' => $news,
+        return $this->render('gv_index/video.html.twig', [
+            'videos' => $videoRepository->findBy([],
+            ['postedAt' => 'desc'])
         ]);
     }
 
-    #[Route('/potw', name: 'potw_index', methods: ['GET'])]
-    public function potw(PlayOfTheWeekRepository $playOfTheWeekRepository): Response
+    #[Route('/video/{id}', name: 'video_show', methods: ['GET'])]
+    public function video_show(Video $video): Response
     {
-        return $this->render('gv_index/potw.html.twig', [
-            'play_of_the_weeks' => $playOfTheWeekRepository->findAll(),
+        return $this->render('gv_index/video_show.html.twig', [
+            'video' => $video,
         ]);
     }
-    #[Route('/potw/{id}', name: 'potw_show', methods: ['GET'])]
-    public function potw_show(PlayOfTheWeek $playOfTheWeek): Response
+
+    #[Route('/article', name: 'article_index', methods: ['GET'])]
+    public function article(ArticleRepository $articleRepository): Response
     {
-        return $this->render('gv_index/potw_show.html.twig', [
-            'play_of_the_week' => $playOfTheWeek,
+        return $this->render('gv_index/article.html.twig', [
+            'articles' => $articleRepository->findBy([],
+            ['createdAt' => 'desc']),
         ]);
     }
 
-    #[Route('/wr', name: 'wr_index', methods: ['GET'])]
-    public function wr(WorldRecordsRepository $worldRecordsRepository): Response
+    #[Route('/article/{id}', name: 'article_show', methods: ['GET'])]
+    public function article_show(Article $article): Response
     {
-        return $this->render('gv_index/wr.html.twig', [
-            'world_records' => $worldRecordsRepository->findAll(),
+        return $this->render('gv_index/article_show.html.twig', [
+            'article' => $article,
         ]);
     }
 
-    #[Route('/wr/{id}', name: 'wr_show', methods: ['GET'])]
-    public function wr_show(WorldRecords $worldRecord): Response
+    #[Route('/news', name: 'news_index', methods: ['GET'])]
+    public function news(ArticleRepository $articleRepository): Response
     {
-        return $this->render('gv_index/wr_show.html.twig', [
-            'world_record' => $worldRecord,
+        return $this->render('gv_index/news.html.twig', [
+            'articles' => $articleRepository->findBy(
+                ['type' => '2'],
+                ['createdAt' => 'desc']
+            ),
         ]);
     }
 
-
-
-
-
+    #[Route('/funnystuff', name: 'funnystuff_index', methods: ['GET'])]
+    public function funnystuff(VideoRepository $VideoRepository): Response
+    {
+        return $this->render('gv_index/funnystuff.html.twig', [
+            'videos' => $VideoRepository->findBy(
+                ['type' => '5'],
+                ['postedAt' => 'desc']
+            ),
+        ]);
+    }
 }
