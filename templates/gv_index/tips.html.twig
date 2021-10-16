@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ApexUnite | News{% endblock %}
+{% block title %}ApexUnite | Tips{% endblock %}
 
 {% block body %}
-    <h1>Toutes nos news</h1>
+    <h1>Tous nos tips</h1>
 
     {% for article in articles %}
         <ul>
@@ -11,7 +11,7 @@
             <li>Crée le {{ article.createdAt ? article.createdAt|date('d-m-Y ') : '' }} à {{ article.createdAt ? article.createdAt|date('H:i:s') : '' }} par {{ article.auteur }}</li>
             <li><img src="{{ article.image }}"></li>
             <li>
-                <a href="{{ path('article_show', {'id': article.id}) }}">Lire la news</a>
+                <a href="{{ path('article_show', {'id': article.id}) }}">Lire le tips</a>
             </li>
         </ul>
     {% else %}

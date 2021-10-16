@@ -54,9 +54,15 @@ class Article
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="articles", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +165,36 @@ class Article
     public function setType(?Type $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setArticles($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getArticles() === $this) {
+                $comment->setArticles(null);
+            }
+        }
 
         return $this;
     }

@@ -8,11 +8,10 @@
         {% for article in articles %}
             <ul>
                 <li><h2>{{ article.titre }}</h2></li>
-                <li>Crée le {{ article.createdAt ? article.createdAt|date('d-m-Y H:i:s') : '' }} par {{ article.auteur }}</li>
-                <li>{{ article.contenu | raw }}</li>
+                <li>Crée le {{ article.createdAt ? article.createdAt|date('d-m-Y ') : '' }} à {{ article.createdAt ? article.createdAt|date('H:i:s') : '' }} par {{ article.auteur }}</li>
                 <li><img src="{{ article.image }}"></li>
                 <li>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+                    <a href="{{ path('article_show', {'id': article.id}) }}">Lire l'article</a>
                 </li>
             </ul>
         {% else %}

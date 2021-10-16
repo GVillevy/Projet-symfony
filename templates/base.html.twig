@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="https://seeklogo.com/images/A/apex-logo-C3478A4601-seeklogo.com.png" />
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
 
@@ -24,6 +25,7 @@
                     <a class="navbar-brand" href="/">ApexUnite</a>
                     <div class="collapse navbar-collapse" id="navbarColor03">
                         <ul class="navbar-nav me-auto">
+
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('user_index') }}">User</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('admin_video_index') }}">Video</a></li>
@@ -32,15 +34,17 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ path('admin_type_index') }}">type</a></li>
                             {% else %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('video_index') }}">Video</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('article_index') }}">Article</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('news_index') }}">news</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('funnystuff_index') }}">funnystuff</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('playoftheweek_index') }}">play of the week</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('article_index') }}">Article</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('news_index') }}">news</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('tips_index') }}">tips</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}">contact</a></li>
                             {% endif %}
+
                             {% if app.user %}
                                 <li class="nav-link">Bonjour, {{ app.user.username }}</li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                             {% else %}
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a></li>

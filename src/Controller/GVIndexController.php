@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comments;
 use App\Entity\News;
 use App\Entity\PlayOfTheWeek;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Entity\WorldRecords;
+use App\Form\CommentsType;
 use App\Repository\ArticleRepository;
 use App\Repository\PlayOfTheWeekRepository;
 use App\Repository\VideoRepository;
@@ -70,11 +72,46 @@ class GVIndexController extends AbstractController
         ]);
     }
 
-    #[Route('/article/{id}', name: 'article_show', methods: ['GET'])]
-    public function article_show(Article $article): Response
+    #[Route('/article/{id}', name: 'article_show', methods: ['GET','POST'])]
+    public function article_show(Article $article, \Symfony\Component\HttpFoundation\Request $request): Response
     {
+        //commentaires
+        //on crée le commentaire "vierge"
+        $comment = new Comments();
+        //on génère le formulaire
+        $commentForm = $this->createForm(CommentsType::class,$comment);
+
+        $commentForm->handleRequest($request);
+
+        //traitement du formulaire
+        if($commentForm->isSubmitted() && $commentForm->isValid()){
+            $comment->setCreatedAt(new \DateTimeImmutable());
+            $comment->setArticles($article);
+
+            //on récupère le contenu du champ parentid
+            $parentid = $commentForm->get("parentid")->getData();
+
+            //on va chercher le commentaire correspondant
+            $em = $this->getDoctrine()->getManager();
+
+            if($parentid != null){
+                $parent = $em->getRepository(Comments::class)->find($parentid);
+            }
+
+            //On définit le parent
+            $comment->setParent($parent ?? null);
+
+            $em->persist($comment);
+            $em->flush();
+
+            $this->addFlash('message','Votre commentaire a bien été envoyé');
+            return $this->redirectToRoute('article_index');
+        }
+
+
         return $this->render('gv_index/article_show.html.twig', [
             'article' => $article,
+            'commentForm' => $commentForm->createView()
         ]);
     }
 
@@ -109,6 +146,22 @@ class GVIndexController extends AbstractController
 
         return $this->render('gv_index/funnystuff.html.twig', [
             'videos' => $videos]);
+    }
+
+
+    #[Route('/tips', name: 'tips_index', methods: ['GET'])]
+    public function tips(ArticleRepository $articleRepository, \Symfony\Component\HttpFoundation\Request $request, PaginatorInterface $paginator): Response
+    {
+        $donnees = $this->getDoctrine()->getRepository(Article::class)->findBy(
+            ['type' => '7'],
+            ['createdAt' => 'desc']);
+        $articles = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            4
+        );
+        return $this->render('gv_index/tips.html.twig', [
+            'articles' => $articles]);
     }
 
     #[Route('/playoftheweek', name: 'playoftheweek_index', methods: ['GET'])]
