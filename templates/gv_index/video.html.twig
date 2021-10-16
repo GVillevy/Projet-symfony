@@ -1,39 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Video index{% endblock %}
+{% block title %}ApexUnite | vidéos{% endblock %}
 
 {% block body %}
-    <h1>Video index</h1>
+    <h1>Toutes nos vidéos</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Titre</th>
-            <th>Lien</th>
-            <th>PostedAt</th>
-            <th>Auteur</th>
-            <th>Description</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
         {% for video in videos %}
-            <tr>
-                <td>{{ video.id }}</td>
-                <td>{{ video.titre }}</td>
-                <iframe width="900" height="506" src="{{ video.lien }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <td>{{ video.postedAt ? video.postedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ video.auteur }}</td>
-                <td>{{ video.description | raw }}</td>
-                <td>
-                </td>
-            </tr>
+            <ul>
+                <li><h2>{{ video.titre }}</h2></li>
+                <li><iframe width="900" height="506" src="{{ video.lien }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                <li>Posté le {{ video.postedAt ? video.postedAt|date('d-m-Y') : '' }} par {{ video.auteur }}</li>
+                <li><a href="{{ path('video_show', {'id': video.id}) }}">Voir plus</a></li>
+            </ul>
         {% else %}
             <tr>
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+        {{ knp_pagination_render(videos) }}
+
 {% endblock %}
