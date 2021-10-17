@@ -53,3 +53,14 @@ table {
 .pagination span{
     padding:20px;
 }
+
+#form {
+    display: flex;
+    flex-direction: row;
+}
+ a{
+     text-decoration: none;
+ }
+h1{
+    padding:20px;
+}

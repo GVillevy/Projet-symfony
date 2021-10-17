@@ -26,21 +26,38 @@
                     <div class="collapse navbar-collapse" id="navbarColor03">
                         <ul class="navbar-nav me-auto">
 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Vidéos</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ path('video_index') }}">Toutes les vidéos</a>
+                                    <a class="dropdown-item" href="{{ path('funnystuff_index') }}">Funny stuff</a>
+                                    <a class="dropdown-item" href="{{ path('playoftheweek_index') }}">Play of the week</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Articles</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ path('article_index') }}">Tous les articles</a>
+                                    <a class="dropdown-item" href="{{ path('news_index') }}">News</a>
+                                    <a class="dropdown-item" href="{{ path('tips_index') }}">Tips</a>
+                                </div>
+                            </li>
+
                             {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('user_index') }}">User</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_video_index') }}">Video</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_article_index') }}">Article</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_tag_index') }}">tag</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('admin_type_index') }}">type</a></li>
-                            {% else %}
-                                <li class="nav-item"><a class="nav-link" href="{{ path('video_index') }}">Video</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('funnystuff_index') }}">funnystuff</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('playoftheweek_index') }}">play of the week</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('article_index') }}">Article</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('news_index') }}">news</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('tips_index') }}">tips</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}">contact</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Panneau admin</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{ path('user_index') }}">Gestion des users</a>
+                                        <a class="dropdown-item" href="{{ path('admin_video_index') }}">Gestion des vidéos</a>
+                                        <a class="dropdown-item" href="{{ path('admin_article_index') }}">Gestion des articles</a>
+                                        <a class="dropdown-item" href="{{ path('admin_tag_index') }}">Gestion des tags</a>
+                                        <a class="dropdown-item" href="{{ path('admin_type_index') }}">Gestion des types</a>
+                                    </div>
+                                </li>
                             {% endif %}
+
+                            <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}">contact</a></li>
 
                             {% if app.user %}
                                 <li class="nav-link">Bonjour, {{ app.user.username }}</li>
@@ -49,16 +66,16 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a></li>
                             {% endif %}
-                                {{ render(controller(
-                                        'App\\Controller\\SearchController::searchBar'
-                                )) }}
                         </ul>
+                            {{ render(controller('App\\Controller\\SearchController::searchBar')) }}
                     </div>
                 </div>
             </nav>
         </header>
+
         {% block body %}{% endblock %}
     </body>
 </html>
-<style>
-</style>
+<script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
