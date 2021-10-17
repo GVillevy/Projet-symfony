@@ -14,6 +14,7 @@ use App\Form\CommentsType;
 use App\Repository\ArticleRepository;
 use App\Repository\PlayOfTheWeekRepository;
 use App\Repository\VideoRepository;
+use App\Repository\WorldRecordRepository;
 use App\Repository\WorldRecordsRepository;
 use http\Env\Request;
 use Knp\Component\Pager\PaginatorInterface;
@@ -207,5 +208,13 @@ class GVIndexController extends AbstractController
 
         return $this->render('gv_index/playoftheweek.html.twig', [
             'videos' => $videos]);
+    }
+
+    #[Route('/wr', name: 'world_record_index', methods: ['GET'])]
+    public function wr(WorldRecordRepository $worldRecordRepository): Response
+    {
+        return $this->render('gv_index/wr.html.twig', [
+            'world_records' => $worldRecordRepository->findAll(),
+        ]);
     }
 }

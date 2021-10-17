@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WorldRecord index{% endblock %}
+
+{% block body %}
+    <h1>WorldRecord index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Player</th>
+                <th>Kills</th>
+                <th>Legend</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for world_record in world_records %}
+            <tr>
+                <td>{{ world_record.date ? world_record.date|date('d-m-Y') : '' }}</td>
+                <td>{{ world_record.player }}</td>
+                <td>{{ world_record.kills }}</td>
+                <td>{{ world_record.legend }}</td>
+                <td>
+                    <a href="{{ path('admin_world_record_edit', {'id': world_record.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_world_record_new') }}">Create new</a>
+{% endblock %}

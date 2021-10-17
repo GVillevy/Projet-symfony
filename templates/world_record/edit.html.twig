@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit WorldRecord{% endblock %}
+
+{% block body %}
+    <h1>Edit WorldRecord</h1>
+
+    {{ include('world_record/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_world_record_index') }}">back to list</a>
+
+    {{ include('world_record/_delete_form.html.twig') }}
+{% endblock %}

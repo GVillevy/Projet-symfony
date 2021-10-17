@@ -4,44 +4,83 @@
 
 {% block body %}
     <h1>Bienvenue sur ApexUnite</h1>
-    {{ render(controller('App\\Controller\\SearchController::searchTagBar')) }}
 
-    <div id="articles">
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Dernière news</div>
-            <div class="card-body">
-                <h4 class="card-title">{{ lastnews.titre | default("Aucune news créé") }}</h4>
-                <p class="card-text">{{ lastnews.contenu | default("Aucune news créé") | raw }}</p>
-                <a href="{{ path('article_show', {'id': lastnews.id | default("Aucune news créé")}) }}">Lire l'article</a>
+    <div id="content">
+        {{ render(controller('App\\Controller\\SearchController::searchTagBar')) }}
+        <div id="articles">
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Dernière news</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ lastnews.titre | default("Aucune news créé") }}</h4>
+                    <p class="card-text">{{ lastnews.contenu | default("Aucune news créé") | raw }}</p>
+                    <a href="{{ path('article_show', {'id': lastnews.id | default("Aucune news créé")}) }}">Lire l'article</a>
+                </div>
+            </div>
+
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Dernier tips</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ lasttips.titre | default("Aucun tips créé") }}</h4>
+                    <p class="card-text">{{ lasttips.contenu | default("Aucun tips créé") | raw }}</p>
+                    <a href="{{ path('article_show', {'id': lasttips.id | default("Aucun tips créé")}) }}">Lire l'article</a>
+                </div>
+            </div>
+
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Dernier Play of the week</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ lastPOTW.titre | default("Aucun POTW créé") }}</h4>
+                    <p class="card-text">{{ lastPOTW.description | default("Aucun POTW créé") | raw }}</p>
+                    <a href="{{ path('video_show', {'id': lastPOTW.id | default("Aucun POTW créé")}) }}">Voir le play of the week</a>
+                </div>
+            </div>
+
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Dernier FunnyStuff</div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ lastFunnyStuff.titre | default("Aucun FunnyStuff créé") }}</h4>
+                    <p class="card-text">{{ lastFunnyStuff.description | default("Aucun FunnyStuff créé") | raw }}</p>
+                    <a href="{{ path('video_show', {'id': lastFunnyStuff.id | default("Aucun FunnyStuff créé")}) }}">Voir le funny stuff</a>
+                </div>
             </div>
         </div>
 
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Dernier tips</div>
-            <div class="card-body">
-                <h4 class="card-title">{{ lasttips.titre | default("Aucun tips créé") }}</h4>
-                <p class="card-text">{{ lasttips.contenu | default("Aucun tips créé") | raw }}</p>
-                <a href="{{ path('article_show', {'id': lasttips.id | default("Aucun tips créé")}) }}">Lire l'article</a>
+        <div id="information">
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Information du jour</strong>
+                    <small>Il y a 1 jours</small>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Selon Dexerto.fr, les meilleurs Legends du jeu en 2021 sont Octane, Wraith et Seer.
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div id="videos">
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Dernier Play of the week</div>
-            <div class="card-body">
-                <h4 class="card-title">{{ lastPOTW.titre | default("Aucun POTW créé") }}</h4>
-                <p class="card-text">{{ lastPOTW.description | default("Aucun POTW créé") | raw }}</p>
-                <a href="{{ path('video_show', {'id': lastPOTW.id | default("Aucun POTW créé")}) }}">Voir le play of the week</a>
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Information du jour</strong>
+                    <small>Il y a 2 jours</small>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Selon Dexerto.fr, les meilleurs armes du jeu en 2021 sont Kraber, Alternator, Spitfire, R-301, Carbine et Volt.
+                </div>
             </div>
-        </div>
-
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Dernier FunnyStuff</div>
-            <div class="card-body">
-                <h4 class="card-title">{{ lastFunnyStuff.titre | default("Aucun FunnyStuff créé") }}</h4>
-                <p class="card-text">{{ lastFunnyStuff.description | default("Aucun FunnyStuff créé") | raw }}</p>
-                <a href="{{ path('video_show', {'id': lastFunnyStuff.id | default("Aucun FunnyStuff créé")}) }}">Voir le funny stuff</a>
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Information du jour</strong>
+                    <small>Il y a 3 jours</small>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Regarder des streams sur Twitch est une bonne solution pour mieux comprendre le jeu. Nous vous conseillons notamment KSWINNIE, oraxe et Askyyy.
+                </div>
             </div>
         </div>
     </div>

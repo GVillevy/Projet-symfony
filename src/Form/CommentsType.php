@@ -16,17 +16,17 @@ class CommentsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content',CKEditorType::class,[
-            'label' => 'Votre commentaire',
-            'attr' => [
-                'class' => 'form-control'
-            ]
-            ])
             ->add('nickname', TextType::class, [
                 'label' => 'Votre pseudo',
                 'attr' => [
                     'class' => 'form-control'
                 ]
+            ])
+            ->add('content',CKEditorType::class,[
+            'label' => 'Votre commentaire',
+            'attr' => [
+                'class' => 'form-control'
+            ]
             ])
             ->add('parentid', HiddenType::class,[
                 'mapped' => false

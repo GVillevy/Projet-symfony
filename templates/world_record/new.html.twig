@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New WorldRecord{% endblock %}
+
+{% block body %}
+    <h1>Create new WorldRecord</h1>
+
+    {{ include('world_record/_form.html.twig') }}
+
+    <a href="{{ path('admin_world_record_index') }}">back to list</a>
+{% endblock %}

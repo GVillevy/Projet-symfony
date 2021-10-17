@@ -58,9 +58,9 @@ table {
     display: flex;
     flex-direction: row;
 }
- a{
+a{
      text-decoration: none;
- }
+}
 h1{
     padding:20px;
 }

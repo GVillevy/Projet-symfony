@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WorldRecord index{% endblock %}
+
+{% block body %}
+    <h1>WorldRecord</h1>
+    <div id="content">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Player</th>
+                <th>Kills</th>
+                <th>Legend</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for world_record in world_records %}
+                <tr class="table-light">
+                    <td>{{ world_record.date ? world_record.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ world_record.player }}</td>
+                    <td>{{ world_record.kills }}</td>
+                    <td>{{ world_record.legend }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

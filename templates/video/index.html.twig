@@ -3,7 +3,7 @@
 {% block title %}Video index{% endblock %}
 
 {% block body %}
-    <h1>Video index</h1>
+    <h1>Gestion des vidéos</h1>
 
     <table class="table">
         <thead>
@@ -22,7 +22,7 @@
             <tr>
                 <td>{{ video.id }}</td>
                 <td>{{ video.titre }}</td>
-                <iframe width="900" height="506" src="{{ video.lien }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <td><iframe width="900" height="506" src="{{ video.lien }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
                 <td>{{ video.postedAt ? video.postedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ video.auteur }}</td>
                 <td>{{ video.description | raw }}</td>
@@ -37,8 +37,8 @@
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
-        {{ knp_pagination_render(videos) }}
         </tbody>
     </table>
     <button type="button" class="btn btn-success"><a href="{{ path('admin_video_new') }}">Créer une nouvelle vidéo</a></button>
+    {{ knp_pagination_render(videos) }}
 {% endblock %}
