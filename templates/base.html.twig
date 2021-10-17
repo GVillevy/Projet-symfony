@@ -54,6 +54,7 @@
                                         <a class="dropdown-item" href="{{ path('admin_tag_index') }}">Gestion des tags</a>
                                         <a class="dropdown-item" href="{{ path('admin_type_index') }}">Gestion des types</a>
                                         <a class="dropdown-item" href="{{ path('admin_world_record_index') }}">Gestion des Worldrecords</a>
+                                        <a class="dropdown-item" href="{{ path('information_index') }}">Gestion des informations</a>
                                     </div>
                                 </li>
                             {% endif %}
@@ -91,8 +92,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding-top: 50px;
-        padding-bottom: 50px;
     }
     a{
         text-decoration: none;
@@ -106,5 +105,8 @@
     }
     #articles a{
         color:gainsboro;
+    }
+    #content h2{
+        padding-top:50px;
     }
 </style>

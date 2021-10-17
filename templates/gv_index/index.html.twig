@@ -7,6 +7,9 @@
 
     <div id="content">
         {{ render(controller('App\\Controller\\SearchController::searchTagBar')) }}
+
+        <h2>Nos derniers articles et vidéos</h2>
+
         <div id="articles">
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
                 <div class="card-header">Dernière news</div>
@@ -44,45 +47,28 @@
                 </div>
             </div>
         </div>
+        <h2>Nos informations du jour</h2>
 
         <div id="information">
+
+        {% for information in informations %}
+
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                    <strong class="me-auto">Information du jour</strong>
-                    <small>Il y a 1 jours</small>
+                    <strong class="me-auto">{{ information.titre }}</strong>
+                    <small>{{ information.date ? information.date|date('d-m-Y ') : '' }}</small>
                     <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="toast-body">
-                    Selon Dexerto.fr, les meilleurs Legends du jeu en 2021 sont Octane, Wraith et Seer.
+                    {{ information.contenu }}
                 </div>
             </div>
-            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">Information du jour</strong>
-                    <small>Il y a 2 jours</small>
-                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    Selon Dexerto.fr, les meilleurs armes du jeu en 2021 sont Kraber, Alternator, Spitfire, R-301, Carbine et Volt.
-                </div>
-            </div>
-            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">Information du jour</strong>
-                    <small>Il y a 3 jours</small>
-                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    Regarder des streams sur Twitch est une bonne solution pour mieux comprendre le jeu. Nous vous conseillons notamment KSWINNIE, oraxe et Askyyy.
-                </div>
-            </div>
+        {% else %}
+        {% endfor %}
         </div>
+
     </div>
 
 {% endblock %}

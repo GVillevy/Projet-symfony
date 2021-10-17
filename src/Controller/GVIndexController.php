@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comments;
+use App\Entity\Information;
 use App\Entity\News;
 use App\Entity\PlayOfTheWeek;
 use App\Entity\Tag;
@@ -31,6 +32,7 @@ class GVIndexController extends AbstractController
     public function index(): Response{
         $repositoryArticle = $this->getDoctrine()->getRepository(Article::class);
         $repositoryVideo = $this->getDoctrine()->getRepository(Video::class);
+        $repositoryInformation = $this->getDoctrine()->getRepository(Information::class);
 
         $lastTips = $repositoryArticle->findOneBy(
             ['type' => '7'],
@@ -52,11 +54,14 @@ class GVIndexController extends AbstractController
             ['postedAt' => 'desc']
         );
 
+        $informations = $repositoryInformation->findAll();
+
         return $this->render('gv_index/index.html.twig', [
             'lastnews' => $lastNews,
             'lasttips' => $lastTips,
             'lastPOTW' => $lastPOTW,
             'lastFunnyStuff' => $lastFunnyStuff,
+            'informations' => $informations,
         ]);
     }
 
