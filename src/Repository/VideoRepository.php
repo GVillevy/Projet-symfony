@@ -39,6 +39,25 @@ class VideoRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findVideosByTag(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.Tags', ':query'),
+                    ),
+                    $qb->expr()->isNotNull('p.postedAt')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Video[] Returns an array of Video objects
     //  */

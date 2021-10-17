@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Bienvenue sur ApexUnite</h1>
+    {{ render(controller('App\\Controller\\SearchController::searchTagBar')) }}
 
     <div id="articles">
         <div class="card border-primary mb-3" style="max-width: 20rem;">

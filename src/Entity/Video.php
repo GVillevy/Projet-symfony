@@ -45,19 +45,15 @@ class Video
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="videos")
-     */
-    private $tags;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="videos")
      */
     private $type;
 
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Tags;
+
 
     public function getId(): ?int
     {
@@ -124,33 +120,6 @@ class Video
         return $this;
     }
 
-    /**
-     * @return Collection|Tag[]
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addVideo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        if ($this->tags->removeElement($tag)) {
-            $tag->removeVideo($this);
-        }
-
-        return $this;
-    }
-
     public function getType(): ?Type
     {
         return $this->type;
@@ -162,4 +131,17 @@ class Video
 
         return $this;
     }
+
+    public function getTags(): ?string
+    {
+        return $this->Tags;
+    }
+
+    public function setTags(?string $Tags): self
+    {
+        $this->Tags = $Tags;
+
+        return $this;
+    }
+
 }

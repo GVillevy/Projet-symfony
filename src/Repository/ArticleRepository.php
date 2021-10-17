@@ -39,6 +39,25 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findArticlesByTag(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.Tags', ':query'),
+                    ),
+                    $qb->expr()->isNotNull('p.createdAt')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Article[] Returns an array of Article objects

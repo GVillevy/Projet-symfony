@@ -45,11 +45,6 @@ class Article
     private $image;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="articles")
-     */
-    private $tags;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="articles")
      */
     private $type;
@@ -59,9 +54,13 @@ class Article
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Tags;
+
     public function __construct()
     {
-        $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -130,33 +129,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|Tag[]
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        if ($this->tags->removeElement($tag)) {
-            $tag->removeArticle($this);
-        }
-
-        return $this;
-    }
-
     public function getType(): ?Type
     {
         return $this->type;
@@ -198,6 +170,20 @@ class Article
 
         return $this;
     }
+
+    public function getTags(): ?string
+    {
+        return $this->Tags;
+    }
+
+    public function setTags(?string $Tags): self
+    {
+        $this->Tags = $Tags;
+
+        return $this;
+    }
+
+
 
 
 }
