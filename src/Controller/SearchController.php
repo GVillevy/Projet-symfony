@@ -32,7 +32,7 @@ class SearchController extends AbstractController
                     'placeholder' => 'Entrez un mot-clé'
                 ]
             ])
-            ->add('recherche', SubmitType::class, [
+            ->add('rechercher', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
@@ -76,7 +76,7 @@ class SearchController extends AbstractController
                     'placeholder' => 'Entrez un tag'
                 ]
             ])
-            ->add('recherche', SubmitType::class, [
+            ->add('rechercher', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
