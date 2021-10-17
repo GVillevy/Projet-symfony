@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comments;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -84,6 +85,13 @@ class ArticleController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $comments = $article->getComments();
+            $itComment = $comments->first();
+            for ($i=0;$i<$comments->count();$i++){
+                $article->removeComment($itComment);
+                $itComment = $comments->next();
+            }
+
             $entityManager->remove($article);
             $entityManager->flush();
         }

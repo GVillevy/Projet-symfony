@@ -4,4 +4,23 @@
 
 {% block body %}
     <h1>Bienvenue sur ApexUnite</h1>
+
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Dernière news</div>
+        <div class="card-body">
+            <h4 class="card-title">{{ lastnews.titre | default("Aucune news créé") }}</h4>
+            <p class="card-text">{{ lastnews.contenu | default("Aucune news créé") | raw }}</p>
+            <a href="{{ path('article_show', {'id': lastnews.id | default("Aucune news créé")}) }}">Lire l'article</a>
+        </div>
+    </div>
+
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Dernier tips</div>
+        <div class="card-body">
+            <h4 class="card-title">{{ lasttips.titre | default("Aucun tips créé") }}</h4>
+            <p class="card-text">{{ lasttips.contenu | default("Aucun tips créé") | raw }}</p>
+            <a href="{{ path('article_show', {'id': lasttips.id | default("Aucun tips créé")}) }}">Lire l'article</a>
+        </div>
+    </div>
+
 {% endblock %}

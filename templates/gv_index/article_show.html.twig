@@ -41,7 +41,7 @@
                 {% if comment.parent == null %}
                     <p>Publié par {{ comment.nickname }} le {{ comment.createdAt|date("d/m/y H:i") }}</p>
                     <div>{{ comment.content | raw }}</div>
-                    <p><a href="#ajout-commentaire" data-reply data-id="{{ comment.id }}">Répondre</a></p>
+                    {# <p><a href="#ajout-commentaire" data-reply data-id="{{ comment.id }}">Répondre</a></p> #}
 
                     {# On affiche les réponses #}
                     {% for reply in comment.replies %}

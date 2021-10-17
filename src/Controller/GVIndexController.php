@@ -28,8 +28,21 @@ class GVIndexController extends AbstractController
 
     #[Route('/', name: 'index')]
     public function index(): Response{
+        $repository = $this->getDoctrine()->getRepository(Article::class);
 
-        return $this->render('gv_index/index.html.twig');
+        $lastTips = $repository->findOneBy(
+            ['type' => '7'],
+            ['createdAt' => 'desc']
+        );
+
+        $lastNews = $repository->findOneBy(
+            ['type' => '2'],
+            ['createdAt' => 'desc']
+        );
+        return $this->render('gv_index/index.html.twig', [
+            'lastnews' => $lastNews,
+            'lasttips' => $lastTips,
+        ]);
     }
 
     #[Route('/video', name: 'video_index', methods: ['GET'])]
