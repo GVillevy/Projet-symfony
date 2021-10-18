@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Repository\ArticleRepository;
 use App\Repository\VideoRepository;
-use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,15 +46,14 @@ class SearchController extends AbstractController
 
     /**
      * @Route("/handleSearch", name="handleSearch")
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      */
-    public function handleSearch(\Symfony\Component\HttpFoundation\Request $request, ArticleRepository $ArticleRepo, VideoRepository $VideoRepo)
+    public function handleSearch(Request $request, ArticleRepository $ArticleRepo, VideoRepository $VideoRepo)
     {
         $query = $request->request->get('form')['query'];
         if($query) {
             $articles = $ArticleRepo->findArticlesByName($query);
             $videos = $VideoRepo->findVideosByName($query);
-
         }
         return $this->render('search/index.html.twig', [
             'articles' => $articles,
@@ -89,9 +88,9 @@ class SearchController extends AbstractController
 
     /**
      * @Route("/handleTagSearch", name="handleTagSearch")
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      */
-    public function handleTagSearch(\Symfony\Component\HttpFoundation\Request $request, ArticleRepository $ArticleRepo, VideoRepository $VideoRepo)
+    public function handleTagSearch(Request $request, ArticleRepository $ArticleRepo, VideoRepository $VideoRepo)
     {
         $query = $request->request->get('form')['query'];
         if($query) {
