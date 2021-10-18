@@ -2,6 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta property="og:url"           content="https://www.sf.m3104.villevy.com/article" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Hello GVHomeController!" />
+        <meta property="og:description"   content="Le super test" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" type="image/png" href="https://seeklogo.com/images/A/apex-logo-C3478A4601-seeklogo.com.png" />
         {# Run `composer require symfony/webpack-encore-bundle`
@@ -15,6 +19,8 @@
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
+
+
     </head>
 
     <body>

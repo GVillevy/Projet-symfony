@@ -25,7 +25,7 @@
                 <td>{{ article.contenu | raw }}</td>
                 <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.auteur }}</td>
-                <td><img src="{{ article.image }}"></td>
+                <td><img src="{{ asset(article.image) | imagine_filter('article') }}" alt="image"></td>
                 <td>
                     <a href="{{ path('admin_article_show', {'id': article.id}) }}">show</a>
                     <a href="{{ path('admin_article_edit', {'id': article.id}) }}">edit</a>

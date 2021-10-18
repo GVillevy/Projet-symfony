@@ -9,7 +9,7 @@
         <ul>
             <li><h2>{{ article.titre }}</h2></li>
             <li>Crée le {{ article.createdAt ? article.createdAt|date('d-m-Y ') : '' }} à {{ article.createdAt ? article.createdAt|date('H:i:s') : '' }} par {{ article.auteur }}</li>
-            <li><img src="{{ article.image }}"></li>
+            <li><img src="{{ asset(article.image) | imagine_filter('article') }}" alt="image"></li>
             <li>
                 <a href="{{ path('article_show', {'id': article.id}) }}">Lire le tips</a>
             </li>

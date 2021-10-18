@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td><img src="{{ article.image }}"></td>
+                <td><img src="{{ asset(article.image) | imagine_filter('article') }}" alt="image"></td>
             </tr>
         </tbody>
     </table>
